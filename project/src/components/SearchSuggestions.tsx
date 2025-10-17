@@ -3,7 +3,7 @@ import useSearchMovies from '../hooks/useSearchMovies';
 
 interface SearchSuggestionsProps {
     query: string;
-    onClose: () => void; // Hàm để đóng dropdown khi click vào một gợi ý
+    onClose: () => void;
 }
 
 export default function SearchSuggestions({ query, onClose }: SearchSuggestionsProps) {
@@ -24,10 +24,9 @@ export default function SearchSuggestions({ query, onClose }: SearchSuggestionsP
     return (
         <div className="py-2">
             {movies.slice(0, 5).map((movie) => ( // Chỉ hiển thị 5 gợi ý đầu tiên
-                // SỬA LẠI: Dùng <Link> thay cho <button>
                 <Link
                     key={movie.id}
-                    to={`/movie-detail/${movie.id}`} // Link trỏ thẳng đến trang chi tiết
+                    to={`/movie-detail/${movie.id}`}
                     onClick={onClose} // Đóng dropdown sau khi click
                     className="flex items-center gap-4 p-3 hover:bg-gray-100 transition-colors"
                 >

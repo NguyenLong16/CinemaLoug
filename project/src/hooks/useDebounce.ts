@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 // Hook này nhận một giá trị và một khoảng thời gian chờ (delay)
 export function useDebounce<T>(value: T, delay: number): T {
-    // State để lưu trữ giá trị đã được "debounce"
     const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
     useEffect(() => {

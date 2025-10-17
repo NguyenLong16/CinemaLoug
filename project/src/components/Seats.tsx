@@ -14,7 +14,6 @@ interface Seat {
 function Seats() {
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
-    // Generate seats layout
     const generateSeats = (): Seat[] => {
         const seats: Seat[] = [];
         const rows = ['J', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'];

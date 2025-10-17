@@ -5,9 +5,9 @@ import Register from "../components/Register"
 import Seats from "../components/Seats"
 import MovieDetail from "../components/MovieDetail"
 import SearchGenre from "../components/SearchGenre"
-import TestGenre from "../views/TestGenre"
-import Cinema from "../views/Cinema"
-import MovieAll from "../views/MovieAll"
+import TestGenre from "../views/Client/TestGenre"
+import Cinema from "../views/Client/Cinema"
+import MovieAll from "../views/Client/MovieAll"
 
 function AppRoute() {
     return (

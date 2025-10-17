@@ -1,5 +1,5 @@
-import TestComponent from "../components/TestComponent";
-import useTestGenre from "../hooks/useTestGenre"
+import TestComponent from "../../components/TestComponent";
+import useTestGenre from "../../hooks/useTestGenre"
 
 const TestGenre = () => {
     //Sử dụng custom hook để lấy dữ liệu trả ra từ api

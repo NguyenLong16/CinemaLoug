@@ -1,5 +1,5 @@
-import MovieAllComponent from "../components/MovieAllComponent"
-import { useMovies } from "../hooks/useMovies";
+import MovieAllComponent from "../../components/MovieAllComponent";
+import { useMovies } from "../../hooks/useMovies";
 
 const MovieAll = () => {
     const { movies, isLoading, error } = useMovies()

@@ -1,5 +1,5 @@
-import CinemaComponent from "../components/CinemaComponent";
-import useCinema from "../hooks/useCinema";
+import CinemaComponent from "../../components/CinemaComponent";
+import useCinema from "../../hooks/useCinema";
 
 const Cinema = () => {
     const { cinemas, isLoading, error } = useCinema();
