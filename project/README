@@ -1,0 +1,13 @@
+1. React update component thế nào? 
+- Vitrual DOM là một bản sao của DOM
+- Nó không được hiển thị trực tiếp trên trình duyệt mà chỉ tồn tại trong bộ nhớ ứng dụng 
+    1. Render lần đầu: React tạo một bản Vitrual DOM và hiển thị giao diện
+    2. Update Vitrual DOM: Khi có thay đổi trong state hoặc props, React sẽ tạo Vitrual DOM mới
+    3. Diffing Algorithm: So sánh giữa Vitrual DOM cũ và Vitrual DOM mới để xác định sự khác biệt
+    4. Cập nhật DOM thât: chỉ những thành phần thay đổi mới được thay vào DOM thật
+
+2. React Hooks bản chất là tính năng được react tạo ra
+
+3. useState
+- Nhận 1 giá trị khởi tạo (initState) làm đối số
+- Trả về một mảng gồm 2 phần tử: giá trị hiện tại của state và một hàm để cập nhật state đó
