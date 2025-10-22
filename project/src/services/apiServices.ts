@@ -2,6 +2,8 @@ import { CinemaType } from '../types/cinema';
 import { CinemaShowtime } from '../types/cinema-showtime';
 import { Genre } from '../types/genre';
 import { Movie } from '../types/movie';
+import { User } from '../types/user'; // Giả sử bạn có interface User
+
 
 // Lấy URL gốc của API từ file .env (ví dụ: VITE_API_BASE_URL=http://localhost:5000)
 // import.meta.env là cách Vite truy cập biến môi trường
@@ -88,3 +90,35 @@ export const searchMovies = async (query: string): Promise<Movie[]> => {
 
     return response.json();
 }
+
+// Thêm vào src/services/apiService.ts
+// ... (các import khác)
+
+// DTO cho dữ liệu gửi đi
+interface RegisterData { username: string, password: string, email: string, fullName: string }
+interface LoginData { username: string; password: string; }
+
+export const registerUser = async (data: RegisterData): Promise<User> => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Đăng ký thất bại.');
+    }
+    return response.json();
+};
+
+export const loginUser = async (data: LoginData): Promise<User> => {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        throw new Error('Đăng nhập thất bại.');
+    }
+    return response.json();
+};

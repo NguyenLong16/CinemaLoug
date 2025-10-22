@@ -31,6 +31,8 @@ Gà lại lập trình
 - Nếu mảng phụ thuộc rỗng, hàm hiệu ứng chỉ chạy một lần sau lần render đầu tiên
 - Nếu không có mảng phụ thuộc, hàm hiệu ứng sẽ chạy sau mỗi lần render
 
+- là một hook để xử lý các "side effect" (tác động phụ) trong component
+
 14.12
 - Toán tử ba ngôi: {condition ? expr1 : expr2}
 - Toán tử AND (&&): {condition && expr}
@@ -112,3 +114,5 @@ gắn thẳng vào vị trí bất kỳ trên DOM
     + Trả về state mới: Dựa vào action, reducer sẽ trả về giá trị state mới 
 
 11. useContext 
+- useContext là một hook trong React dùng để truyền dữ liệu giữa các component
+mà không cần phải truyền props qua từng tầng (props drilling)

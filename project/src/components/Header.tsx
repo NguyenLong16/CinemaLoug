@@ -1,27 +1,28 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, User, LogOut, UserPlus, LogIn } from 'lucide-react';
 import { useDebounce } from '../hooks/useDebounce';
 import useCinemas from '../hooks/useCinema';
 import SearchSuggestions from './SearchSuggestions';
 import DropDownCinema from './DropDownCinema';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
-  // === STATE: Quản lý trạng thái nội bộ của component ===
   const [query, setQuery] = useState('');
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
 
-  // === HOOKS: Sử dụng các "công cụ" của React và custom hook ===
+  const { user, logout, isAuthenticated } = useAuth();
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const navigate = useNavigate();
   const debouncedQuery = useDebounce(query, 500);
   const { cinemas, isLoading, error } = useCinemas();
 
-  // Ref: Tạo một "tham chiếu" đến thẻ div bao quanh khu vực tìm kiếm
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // === HANDLERS: Các hàm xử lý sự kiện của người dùng ===
-
-  // Xử lý khi nhấn Enter hoặc nút tìm kiếm
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSuggestionsVisible(false);
@@ -32,25 +33,18 @@ export default function Header() {
     }
   };
 
-  // === EFFECTS: Xử lý các "side effect" ===
-
-  // Effect này để lắng nghe sự kiện click ra bên ngoài khu vực tìm kiếm
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      // Nếu khu vực tìm kiếm tồn tại và nơi người dùng click không nằm trong khu vực đó
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-        setIsSuggestionsVisible(false); // Thì ẩn danh sách gợi ý
+        setIsSuggestionsVisible(false);
       }
     }
-    // Gắn listener vào toàn bộ trang
     document.addEventListener("mousedown", handleClickOutside);
-    // Dọn dẹp listener khi component bị gỡ bỏ để tránh rò rỉ bộ nhớ
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [searchContainerRef]); // Chỉ chạy lại khi ref thay đổi (thường là 1 lần)
+  }, [searchContainerRef]);
 
-  // Effect này để hiển thị gợi ý khi người dùng đang gõ
   useEffect(() => {
     if (debouncedQuery.trim()) {
       setIsSuggestionsVisible(true);
@@ -62,11 +56,40 @@ export default function Header() {
   return (
     <>
       {/* Top Bar */}
-      <div className="bg-black text-white py-3 px-4">
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-3 px-4 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-end items-center gap-4 text-sm">
-          <Link to="/login" className="hover:text-gray-300 transition-colors">Đăng nhập</Link>
-          <span className="text-gray-600">|</span>
-          <Link to="/register" className="hover:text-gray-300 transition-colors">Đăng Ký</Link>
+          {isAuthenticated ? (
+            <>
+              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
+                <User className="w-4 h-4 text-blue-300" />
+                <span className="font-medium">Chào, {user?.fullName || user?.username}!</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 bg-red-500/90 hover:bg-red-600 px-4 py-2 rounded-full font-medium transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <LogOut className="w-4 h-4" />
+                Đăng xuất
+              </button>
+            </>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Link
+                to="/login"
+                className="flex items-center gap-2 bg-blue-500/90 hover:bg-blue-600 px-5 py-2 rounded-full font-medium transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <LogIn className="w-4 h-4" />
+                Đăng nhập
+              </Link>
+              <Link
+                to="/register"
+                className="flex items-center gap-2 bg-emerald-500/90 hover:bg-emerald-600 px-5 py-2 rounded-full font-medium transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <UserPlus className="w-4 h-4" />
+                Đăng ký
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
@@ -84,8 +107,6 @@ export default function Header() {
                   <span className="text-xs text-gray-500 -mt-1">cinemas</span>
                 </div>
               </Link>
-
-              {/* Khu vực tìm kiếm được bọc bởi div có ref */}
 
               {isLoading && <div className="text-sm text-gray-500">Tải rạp...</div>}
               {error && <div className="text-sm text-red-500">Lỗi</div>}
@@ -121,9 +142,7 @@ export default function Header() {
                     />
                   </div>
                 )}
-
               </div>
-
             </div>
           </div>
         </div>
