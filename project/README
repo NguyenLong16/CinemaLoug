@@ -1,3 +1,8 @@
+Gà lại lập trình 
+
+
+* ...anything: toán tử spread (toán tử trải rộng): 
+
 1. React update component thế nào? 
 - Vitrual DOM là một bản sao của DOM
 - Nó không được hiển thị trực tiếp trên trình duyệt mà chỉ tồn tại trong bộ nhớ ứng dụng 
@@ -6,8 +11,104 @@
     3. Diffing Algorithm: So sánh giữa Vitrual DOM cũ và Vitrual DOM mới để xác định sự khác biệt
     4. Cập nhật DOM thât: chỉ những thành phần thay đổi mới được thay vào DOM thật
 
-2. React Hooks bản chất là tính năng được react tạo ra
+2. React Hooks bản chất là tính năng được react thiết kế sẵn
 
 3. useState
 - Nhận 1 giá trị khởi tạo (initState) làm đối số
 - Trả về một mảng gồm 2 phần tử: giá trị hiện tại của state và một hàm để cập nhật state đó
+
+- Nhược điểm: 
+    + bị bất tiện khi phải truyền dữ liệu qua nhiều tầng component (props drilling)
+    + Có những component chỉ đóng vai trò trung gian, không dùng đến props
+     nhưng vẫn phải truyền props qua cho component con, gây thừa thãi và thiếu code
+    + Nếu sau này thay đổi logic, bỏ hoặc thay đổi component trung gian, mà không cập nhật lại luồng props,
+     sẽ dễ bị lỗi và rất khó kiểm soát
+
+4. useEffect
+- Nhận vào 2 đối số: một hàm hiệu ứng (effect function) và một mảng phụ thuộc (dependency array)
+- Hàm hiệu ứng sẽ được thực thi sau mỗi lần render của component
+- Mảng phụ thuộc xác định khi nào hàm hiệu ứng sẽ được gọi lại
+- Nếu mảng phụ thuộc rỗng, hàm hiệu ứng chỉ chạy một lần sau lần render đầu tiên
+- Nếu không có mảng phụ thuộc, hàm hiệu ứng sẽ chạy sau mỗi lần render
+
+14.12
+- Toán tử ba ngôi: {condition ? expr1 : expr2}
+- Toán tử AND (&&): {condition && expr}
+
+4. Map: 
+- Được dùng để tạo ra một mảng mới từ ban đầu bằng cách áp dụng một hàm (callback)
+  cho mỗi phần tử của mảng đó. Điều này giúp ta chuyển đổi, xử lý dữ liệu một cách dễ dàng
+  mà không làm thay đổi mảng gốc.
+- Cú pháp: let newArray = array.map(
+    function(currentValue, index, arr) {
+        // return giá trị mới cho phần tử của mảng
+    }, thisArg)
+
+    const result = number.map(function(currentValue, index, arrOriginal) {
+        // return giá trị mới cho phần tử của mảng
+    })
+    currentValue: giá trị hiện tại của phần tử đang được xử lý trong mảng
+    index: chỉ số của phần tử hiện tại trong mảng
+    arrOriginal: mảng gốc mà phương thức map() được gọi trên đó 
+
+5. Section: 
+const Section = (props) => {
+
+    const {title, children, ...rest} = props
+    return(
+        <section {...rest}>
+            <h2>{title}</h2>
+            <div {...rest}>
+                {children}
+            </div>
+        </section>
+    )
+}
+export default Section
+...props: nhận tất cả các props còn lại không được liệt kê rõ ràng
+và gán chúng vào một đối tượng props trong component cha
+children: đại diện cho tất cả các phần tử con được bao bọc bên trong component khi nó được sử dụng
+
+VD: const Cha() {
+    return(
+        <Section title="Tiêu đề" className="section-class" id="section-id"> //className và id sẽ được truyền vào props
+            <p>Nội dung bên trong section</p> //children
+        </Section>
+    )
+}
+
+6. Cơ chế One-way binding và Two-way binding data trong React
+- Theo mặc định bất cứ khi nào state hoặc props của một component thay đổi,
+React sẽ thực hiện quá trình re-render lại component đó và tất cả các componentcon bên trong nó.
+Quá trình này gọi là One-way binding data (ràng buộc dữ liệu một chiều).
+
+- Two-way binding data là gì? 
+  + Là cơ chế giúp đồng bộ dữ liệu giữa giao diện người dùng (UI) và state trong React.
+  + Khi dữ liệu UI thay đổi -> state sẽ cập nhật ngay lập tức. Khi state thay đổi => UI sẽ tự động cập nhật theo.
+  + Điều này giúp việc quản lý dữ liệu trở nên dễ dàng đặc biệt là các form nhập liệu.
+  + Two-way binding trong React không chỉ dùng với input mà có thể áp dụng với các thành phần UI khác như checkbox, radio, ....
+
+7. useRef: 
+- Là một hook đặc biệt trong React, dùng để tạo ra một đối tượng tham chiếu(reference object)
+- useRef() trả về một object có property.current 
+- Khi gán thuộc tính ref={playerName} React sẽ tự động tìm đến DOM thực tế vào playerName.current
+
+8. useImperativeHandle cho phép component con chủ động chỉ định những hàm hoặc thuộc tính nào
+sẽ được "lộ" ra ngoài cho component cha truy cập qua ref
+- Component cha chỉ gọi được những hàm/thuộc tính được return trong object của useImperativeHandle,
+còn lại hoàn toàn không truy cập được
+- Tóm lại: + Chỉ những gì được khai báo trong useImperativeHandle mới dùng được từ cha. 
+           + Các biến, hàm, DOM khác là private, cha không truy cập được 
+
+9. portals là tính năng trong React cho phép bạn render 1 component,
+gắn thẳng vào vị trí bất kỳ trên DOM 
+
+10. useReducer
+- Là hàm nhận vào 2 tham số: 
+    + state: giá trị trạng thái hiện tại 
+    + action: hành động (thông điệp) gửi lên để yêu cầu thay đổi state
+- Nhiệm vụ của reducer: 
+    + Xử lý action: Dựa vào action gửi lên, xác định lại cập nhật state như thế nào
+    + Trả về state mới: Dựa vào action, reducer sẽ trả về giá trị state mới 
+
+11. useContext 
