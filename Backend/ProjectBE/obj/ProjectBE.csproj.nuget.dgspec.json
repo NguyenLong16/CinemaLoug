@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\WorkSpace\\DEMO\\projectBE\\ProjectBE\\ProjectBE\\ProjectBE.csproj": {}
+    "F:\\WorkSpace\\DEMO\\CinemaProject\\Backend\\ProjectBE\\ProjectBE.csproj": {}
   },
   "projects": {
-    "F:\\WorkSpace\\DEMO\\projectBE\\ProjectBE\\ProjectBE\\ProjectBE.csproj": {
+    "F:\\WorkSpace\\DEMO\\CinemaProject\\Backend\\ProjectBE\\ProjectBE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\WorkSpace\\DEMO\\projectBE\\ProjectBE\\ProjectBE\\ProjectBE.csproj",
+        "projectUniqueName": "F:\\WorkSpace\\DEMO\\CinemaProject\\Backend\\ProjectBE\\ProjectBE.csproj",
         "projectName": "ProjectBE",
-        "projectPath": "F:\\WorkSpace\\DEMO\\projectBE\\ProjectBE\\ProjectBE\\ProjectBE.csproj",
+        "projectPath": "F:\\WorkSpace\\DEMO\\CinemaProject\\Backend\\ProjectBE\\ProjectBE.csproj",
         "packagesPath": "C:\\Users\\nvlr1\\.nuget\\packages\\",
-        "outputPath": "F:\\WorkSpace\\DEMO\\projectBE\\ProjectBE\\ProjectBE\\obj\\",
+        "outputPath": "F:\\WorkSpace\\DEMO\\CinemaProject\\Backend\\ProjectBE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "F:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.20, )"
@@ -74,6 +78,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [

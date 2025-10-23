@@ -47,40 +47,14 @@ namespace ProjectBE.Controllers
                     showtimes = group.Select(s => new ShowtimeDto
                     {
                         Id = s.Id,
-                        Time = s.Showtime1.HasValue ? s.Showtime1.Value.ToString("HH:mm") : ""
+                        Time = s.Showtime1.HasValue ? s.Showtime1.Value.ToString("HH:mm") : "", 
+                        Date = s.Showtime1.HasValue ? s.Showtime1.Value.ToString("dd/MM/yyyy") : ""
                     }).ToList()
                 }).ToList();
 
             return Ok(groupedByCinema);
         }
 
-        // Thêm phương thức này vào bên trong lớp ShowtimesController
-
-        // GET: api/showtimes/movie/5/dates
-        // Trả về một danh sách các ngày (chỉ ngày, không có giờ) có suất chiếu cho phim
-        [HttpGet("movie/{movieId}/dates")]
-        public async Task<ActionResult<IEnumerable<DateTime>>> GetAvailableDates(int movieId)
-        {
-            var availableDates = await _context.Showtimes
-                // 1. Lọc theo phim
-                .Where(s => s.MovieId == movieId && s.Showtime1.HasValue)
-
-                // 2. Chỉ lấy các suất chiếu từ hôm nay trở đi
-                .Where(s => s.Showtime1.Value.Date >= DateTime.Today)
-
-                // 3. Chỉ chọn ra phần ngày (bỏ qua giờ)
-                .Select(s => s.Showtime1.Value.Date)
-
-                // 4. Lấy các ngày duy nhất (không trùng lặp)
-                .Distinct()
-
-                // 5. Sắp xếp theo thứ tự tăng dần
-                .OrderBy(date => date)
-
-                // 6. Thực thi truy vấn
-                .ToListAsync();
-
-            return Ok(availableDates);
-        }
+        
     }
 }

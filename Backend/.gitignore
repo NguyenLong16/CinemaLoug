@@ -1,0 +1,43 @@
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+
+# Rider
+.idea/
+
+# ASP.NET scaffolding
+ScaffoldingReadMe.txt
+
+# Logs
+*.log
+
+# Publish output
+publish/
+out/
+
+# User-specific files
+*.userosscache
+*.sln.docstates
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+project.lock.json
+
+# Other
+node_modules/
