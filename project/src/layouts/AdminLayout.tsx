@@ -1,6 +1,6 @@
 // src/layouts/AdminLayout.tsx
 import { Outlet, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Để lấy thông tin user và hàm logout
+import { useAuth } from '../hooks/AuthContext'; // Để lấy thông tin user và hàm logout
 
 export default function AdminLayout() {
     const { user, logout } = useAuth();
