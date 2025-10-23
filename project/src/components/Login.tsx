@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Lock, LogIn, User, AlertCircle } from 'lucide-react';
-import { useAuth } from '../hooks/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../services/apiServices';
 
 export default function Login() {
@@ -11,6 +11,8 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const location = useLocation(); //lấy thông tin về trang hiện tại 
+    const fromPage = location.state?.from || '/';
     const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -23,9 +25,9 @@ export default function Login() {
             login(userData);
 
             if (userData.role === 'Admin') {
-                navigate('/admin/dashboard');
+                navigate('/admin/dashboard', { replace: true });
             } else {
-                navigate('/');
+                navigate(fromPage, { replace: true });
             }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Tên đăng nhập hoặc mật khẩu không đúng.');

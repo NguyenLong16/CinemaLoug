@@ -5,7 +5,7 @@ import { useDebounce } from '../hooks/useDebounce';
 import useCinemas from '../hooks/useCinema';
 import SearchSuggestions from './SearchSuggestions';
 import DropDownCinema from './DropDownCinema';
-import { useAuth } from '../hooks/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
   const [query, setQuery] = useState('');

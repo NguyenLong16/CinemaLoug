@@ -117,5 +117,5 @@ gắn thẳng vào vị trí bất kỳ trên DOM
 - useContext là một hook trong React dùng để truyền dữ liệu giữa các component
 mà không cần phải truyền props qua từng tầng (props drilling)
 
-12. useMemo
-- 
+12. key
+- Là một prop đặc biệt của React khi mà key thay đổi thì giao diện sẽ được render

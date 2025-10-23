@@ -1,4 +1,5 @@
 export interface Showtime {
     id: number,
-    time: string
+    time: string,
+    date: string
 }
