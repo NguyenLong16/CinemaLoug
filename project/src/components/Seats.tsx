@@ -45,38 +45,13 @@ export default function Seats() {
 
     const getSeatClassName = (seat: Seat) => {
         const isSelected = selectedSeats.includes(seat.id);
-        const seatType = seat.seatTypeName?.toLowerCase();
+        const baseClasses = "w-10 h-10 rounded-lg font-bold flex items-center justify-center cursor-pointer transition-all duration-300 ease-out text-sm";
 
-        const baseClasses = "font-bold flex items-center justify-center cursor-pointer transition-all duration-300 ease-out text-sm";
-
-        let sizeClasses = "w-10 h-10 rounded-lg";
-        if (seatType === 'double') {
-            sizeClasses = "w-20 h-10 rounded-xl";
-        }
-
-        if (seat.isBooked) {
-            return `${baseClasses} ${sizeClasses} bg-gray-300 text-gray-500 cursor-not-allowed opacity-60`;
-        }
-
-        if (isSelected) {
-            if (seatType === 'vip') {
-                return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/50 scale-110 ring-2 ring-emerald-400`;
-            }
-            if (seatType === 'double') {
-                return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/50 scale-110 ring-2 ring-emerald-400`;
-            }
-            return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/50 scale-110 ring-2 ring-emerald-400`;
-        }
-
-        if (seatType === 'vip') {
-            return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-amber-400 to-amber-500 text-amber-900 hover:scale-110 hover:shadow-lg hover:shadow-amber-400/50`;
-        }
-
-        if (seatType === 'double') {
-            return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-pink-400 to-pink-500 text-white hover:scale-110 hover:shadow-lg hover:shadow-pink-400/50`;
-        }
-
-        return `${baseClasses} ${sizeClasses} bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700 hover:scale-110 hover:shadow-md hover:from-slate-300 hover:to-slate-400`;
+        if (seat.isBooked) return `${baseClasses} bg-gray-300 text-gray-500 cursor-not-allowed opacity-60`;
+        if (isSelected) return `${baseClasses} bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/50 scale-110 ring-2 ring-emerald-400`;
+        if (seat.seatTypeName?.toLowerCase() === 'vip') return `${baseClasses} bg-gradient-to-br from-amber-400 to-amber-500 text-amber-900 hover:scale-110 hover:shadow-lg hover:shadow-amber-400/50`;
+        if (seat.seatTypeName?.toLowerCase() === 'double') return `${baseClasses} bg-gradient-to-br from-pink-400 to-pink-500 text-white hover:scale-110 hover:shadow-lg hover:shadow-pink-400/50 w-20 rounded-xl`;
+        return `${baseClasses} bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700 hover:scale-110 hover:shadow-md hover:from-slate-300 hover:to-slate-400`;
     };
 
     const totalPrice = useMemo(() => {
@@ -260,8 +235,8 @@ export default function Seats() {
 
                                 <button
                                     className={`w-full font-bold py-4 px-6 rounded-xl transition-all duration-300 transform ${selectedSeats.length > 0
-                                            ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/60 hover:-translate-y-0.5'
-                                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg shadow-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/60 hover:-translate-y-0.5'
+                                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                                         }`}
                                     disabled={selectedSeats.length === 0}
                                 >
