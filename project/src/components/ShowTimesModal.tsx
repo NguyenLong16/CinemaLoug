@@ -4,8 +4,10 @@ import { X } from 'lucide-react';
 import { useShowtime } from '../hooks/useShowtime';
 import { ShowtimesModalProps } from '../types/showtimesModalProps';
 import { useAuth } from '../context/AuthContext';
+import { Showtime } from '../types/showtime'
 // Định nghĩa kiểu dữ liệu cho suất chiếu đã chọn
 interface SelectedShowtime {
+    showtimeId: number;
     cinema: string;
     time: string;
     date: string;
@@ -24,8 +26,8 @@ export default function ShowtimesModal({ isOpen, onClose, movieId, movieInfo }: 
 
 
     // Khi người dùng click chọn suất chiếu
-    const handleShowtimeClick = (cinemaName: string, time: string, date: string) => {
-        setSelectedShowtime({ cinema: cinemaName, time, date });
+    const handleShowtimeClick = (cinemaName: string, showtime: Showtime) => {
+        setSelectedShowtime({ showtimeId: showtime.id, cinema: cinemaName, time: showtime.time, date: showtime.date });
         setIsConfirmationOpen(true); // Bật modal xác nhận
     };
 
@@ -72,10 +74,15 @@ export default function ShowtimesModal({ isOpen, onClose, movieId, movieInfo }: 
                         <button
                             onClick={() =>
                                 isAuthenticated
-                                    ? navigate('/seats', { state: { selectedShowtime } }) // If true (logged in)
-                                    : navigate('/login', { state: { from: `/seats` } })
+                                    ? navigate('/seats', { state: { selectedShowtime } })
+                                    : navigate('/login', { state: { from: `/seats`, selectedShowtime: selectedShowtime } })
                             }
-                            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg text-lg">
+                            className="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg 
+                            hover:bg-green-700 
+                            focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 
+                            transition-all duration-200 ease-in-out
+                            disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                             TIẾP TỤC
                         </button>
                     </div>
@@ -111,7 +118,7 @@ export default function ShowtimesModal({ isOpen, onClose, movieId, movieInfo }: 
                                 {cinema.showtimes.map(showtime => (
                                     <button
                                         key={showtime.id}
-                                        onClick={() => handleShowtimeClick(cinema.cinemaName, showtime.time, showtime.date)}
+                                        onClick={() => handleShowtimeClick(cinema.cinemaName, showtime)}
                                         className="px-5 py-3 font-semibold text-blue-700 bg-white border-2 rounded-lg hover:bg-blue-600 hover:text-white"
                                     >
                                         {showtime.time}

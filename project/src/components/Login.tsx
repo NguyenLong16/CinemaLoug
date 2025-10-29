@@ -13,6 +13,7 @@ export default function Login() {
     const navigate = useNavigate();
     const location = useLocation(); //lấy thông tin về trang hiện tại 
     const fromPage = location.state?.from || '/';
+    const selectedShowtime = location.state?.selectedShowtime;
     const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -27,7 +28,7 @@ export default function Login() {
             if (userData.role === 'Admin') {
                 navigate('/admin/dashboard', { replace: true });
             } else {
-                navigate(fromPage, { replace: true });
+                navigate(fromPage, { replace: true, state: { selectedShowtime } })
             }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Tên đăng nhập hoặc mật khẩu không đúng.');

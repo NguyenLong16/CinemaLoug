@@ -2,6 +2,7 @@ import { CinemaType } from '../types/cinema';
 import { CinemaShowtime } from '../types/cinema-showtime';
 import { Genre } from '../types/genre';
 import { Movie } from '../types/movie';
+import { ShowtimeDetail } from '../types/showtime-detail';
 import { User } from '../types/user'; // Giả sử bạn có interface User
 
 
@@ -122,3 +123,11 @@ export const loginUser = async (data: LoginData): Promise<User> => {
     }
     return response.json();
 };
+
+export const getShowtimeDetailsById = async (showtimeId: number): Promise<ShowtimeDetail> => {
+    const response = await fetch(`${API_BASE_URL}/api/showtime/detail/${showtimeId}`)
+    if (!response.ok) {
+        throw new Error('Không thể tải chi tiết suất chiếu.');
+    }
+    return response.json();
+}
