@@ -181,6 +181,32 @@
   },
   {
     "ContainingType": "ProjectBE.Controllers.ShowtimeController",
+    "Method": "GetShowtimeDetails",
+    "RelativePath": "api/showtime/detail/{showtimeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "showtimeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ProjectBE.Dtos.ShowtimeDetailDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ProjectBE.Controllers.ShowtimeController",
     "Method": "GetShowtimesByMovie",
     "RelativePath": "api/showtime/movie/{movieId}",
     "HttpMethod": "GET",

@@ -366,6 +366,46 @@
         }
       }
     },
+    "/api/showtime/detail/{showtimeId}": {
+      "get": {
+        "tags": [
+          "Showtime"
+        ],
+        "parameters": [
+          {
+            "name": "showtimeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowtimeDetailDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowtimeDetailDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowtimeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/weatherforecast": {
       "get": {
         "tags": [
@@ -517,6 +557,84 @@
           },
           "fullName": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SeatDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "row": {
+            "type": "string",
+            "nullable": true
+          },
+          "seatNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seatTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "surcharge": {
+            "type": "number",
+            "format": "double"
+          },
+          "isBooked": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShowtimeDetailDto": {
+        "type": "object",
+        "properties": {
+          "showtimeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "movieTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "movieImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "movieRating": {
+            "type": "string",
+            "nullable": true
+          },
+          "cinemaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "screeningRoomName": {
+            "type": "string",
+            "nullable": true
+          },
+          "showtimeDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "showtimeTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "basePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "seats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeatDto"
+            },
             "nullable": true
           }
         },
